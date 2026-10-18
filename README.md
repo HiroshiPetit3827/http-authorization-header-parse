@@ -25,3 +25,10 @@ The trade-off: this library is intentionally small and uses heuristics rather th
 Classifying a header as token-style versus parameter-style is done by checking whether the value contains an `=` followed by more content. A token68 value that contains an internal `=` (not just trailing base64 padding) will be misclassified as a parameter list and yield empty params. This is a deliberate simplification — token68 with internal `=` is rare, and supporting it fully would require a scheme registry. If you're parsing a scheme you know is token-style, check `result.token` and treat an empty params object as a signal.
 
 This library does not validate that scheme characters are legal `tchar`s per RFC 7230 §3.2.6. It assumes the input came from an HTTP header a server already accepted. Stricter validation would reject some real-world inputs.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
