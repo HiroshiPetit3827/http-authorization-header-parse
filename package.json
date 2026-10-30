@@ -1,6 +1,6 @@
 {
   "name": "http-authorization-header-parse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parses HTTP Authorization headers into scheme, parameters, and token68 components.",
   "type": "module",
   "main": "src/index.js",
